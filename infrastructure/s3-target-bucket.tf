@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "target-bucket" {
-    bucket = "psp-copy-lambda-target"
+    bucket = "psp-file-duplicator-target"
     acl = "private"
     force_destroy = "true"
 
