@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "target-bucket" {
     acl = "private"
     force_destroy = "true"
 
-    tags {
+    tags = {
         Description = "The target bucket for the copy-file lambda"
     }
 }

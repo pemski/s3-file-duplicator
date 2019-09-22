@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "source-bucket" {
     acl = "private"
     force_destroy = "true"
 
-    tags {
+    tags = {
         Description = "The source bucket for the copy-file lambda"
     }
 }
