@@ -14,8 +14,8 @@ resource "aws_iam_policy" "s3-access-policy" {
                 "s3:GetObject"
             ],
             "Resource": [
-                "arn:aws:s3:::s3-source/*",
-                "arn:aws:s3:::s3-target/*"
+                "${aws_s3_bucket.source-bucket.arn}",
+                "${aws_s3_bucket.target-bucket.arn}"
             ]
         }
     ]
