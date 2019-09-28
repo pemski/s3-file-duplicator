@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "s3-access-policy" {
   name        = "psp-s3-file-duplicator-s3-access-policy"
-  path        = "s3-file-duplicator"
+  path        = "/s3-file-duplicator/"
   description = "A policy giving access to source and target S3 buckets for file duplicator"
 
   policy = <<EOF
