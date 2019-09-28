@@ -27,7 +27,7 @@ namespace FileDuplicatorLambda
         /// </summary>
         public Function()
         {
-            var regionName = Environment.GetEnvironmentVariable("region-name");
+            var regionName = Environment.GetEnvironmentVariable("REGION_NAME");
             if (string.IsNullOrWhiteSpace(regionName))
                 throw new ArgumentNullException(nameof(regionName), "Region name cannot be null or empty");
 
@@ -67,7 +67,7 @@ namespace FileDuplicatorLambda
             {
                 var sourceBucketName = s3Event.Bucket.Name;
                 var fileName = s3Event.Object.Key;
-                var destinationBucketName = Environment.GetEnvironmentVariable("destination-bucket-name");
+                var destinationBucketName = Environment.GetEnvironmentVariable("DESTINATION_BUCKET_NAME");
 
                 if (string.IsNullOrWhiteSpace(destinationBucketName))
                     throw new ArgumentNullException(nameof(destinationBucketName), "The environment variable with destination S3 bucket name ('destination-bucket-name') is not set or empty.");
