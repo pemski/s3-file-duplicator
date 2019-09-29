@@ -1,3 +1,23 @@
+resource "aws_iam_role" "s3-access-role" {
+  name = "psp-file-duplicator-s3-access-role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_iam_policy" "s3-access-policy" {
   name        = "psp-s3-file-duplicator-s3-access-policy"
   path        = "/s3-file-duplicator/"
@@ -19,26 +39,6 @@ resource "aws_iam_policy" "s3-access-policy" {
             ]
         }
     ]
-}
-EOF
-}
-
-resource "aws_iam_role" "s3-access-role" {
-  name = "psp-file-duplicator-s3-access-role"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
 }
 EOF
 }
