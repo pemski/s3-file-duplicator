@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "source-bucket" {
-  bucket        = "psp-file-duplicator-source"
+  bucket        = "${var.s3-source-bucket-name}"
   acl           = "private"
   force_destroy = "true"
 
@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "source-bucket" {
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
-  bucket = "${aws_s3_bucket.source-bucket.id}"
+  bucket = "${var.s3-source-bucket-name}"
 
   lambda_function {
     lambda_function_arn = "${aws_lambda_function.file-duplicator-lambda.arn}"

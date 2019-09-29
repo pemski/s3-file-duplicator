@@ -13,8 +13,8 @@ resource "aws_lambda_function" "file-duplicator-lambda" {
 
   environment {
     variables = {
-      REGION_NAME = "${data.aws_region.current.name}"
-      DESTINATION_BUCKET_NAME = "${aws_s3_bucket.target-bucket.id}"
+      REGION_NAME             = "${data.aws_region.current.name}"
+      DESTINATION_BUCKET_NAME = "${var.s3-destination-bucket-name}"
     }
   }
 }
