@@ -13,7 +13,7 @@ resource "aws_iam_policy" "source-s3-access-policy" {
                 "s3:GetObject"
             ],
             "Resource": [
-                "${aws_s3_bucket.source-bucket.arn}",
+                "${aws_s3_bucket.source-bucket.arn}"
             ]
         }
     ]
@@ -36,7 +36,7 @@ resource "aws_iam_policy" "destination-s3-access-policy" {
                 "s3:PutObject"
             ],
             "Resource": [
-                "${aws_s3_bucket.destination-bucket.arn}",
+                "${aws_s3_bucket.destination-bucket.arn}"
             ]
         }
     ]
