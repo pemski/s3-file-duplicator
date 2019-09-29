@@ -18,10 +18,10 @@ resource "aws_iam_role" "s3-access-role" {
 EOF
 }
 
-resource "aws_iam_policy" "s3-access-policy" {
-  name        = "psp-s3-file-duplicator-s3-access-policy"
+resource "aws_iam_policy" "source-s3-access-policy" {
+  name        = "psp-file-duplicator-source-s3-access-policy"
   path        = "/s3-file-duplicator/"
-  description = "A policy giving access to source and target S3 buckets for file duplicator"
+  description = "A policy giving access to source S3 bucket for the file duplicator"
 
   policy = <<EOF
 {
@@ -30,12 +30,10 @@ resource "aws_iam_policy" "s3-access-policy" {
         {
             "Effect": "Allow",
             "Action": [
-                "s3:PutObject",
                 "s3:GetObject"
             ],
             "Resource": [
                 "${aws_s3_bucket.source-bucket.arn}",
-                "${aws_s3_bucket.destination-bucket.arn}"
             ]
         }
     ]
@@ -43,7 +41,35 @@ resource "aws_iam_policy" "s3-access-policy" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "attach-s3-access-policy-to-role" {
+resource "aws_iam_policy" "destination-s3-access-policy" {
+  name        = "psp-file-duplicator-destination-s3-access-policy"
+  path        = "/s3-file-duplicator/"
+  description = "A policy giving access to destination S3 bucket for the file duplicator"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "${aws_s3_bucket.destination-bucket.arn}",
+            ]
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "attach-source-s3-access-policy-to-role" {
   role       = "${aws_iam_role.s3-access-role.name}"
-  policy_arn = "${aws_iam_policy.s3-access-policy.arn}"
+  policy_arn = "${aws_iam_policy.source-s3-access-policy.arn}"
+}
+
+resource "aws_iam_role_policy_attachment" "attach-destination-s3-access-policy-to-role" {
+  role       = "${aws_iam_role.s3-access-role.name}"
+  policy_arn = "${aws_iam_policy.destination-s3-access-policy.arn}"
 }
