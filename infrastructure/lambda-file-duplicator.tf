@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "file-duplicator-lambda" {
   filename      = "${local.function-zip-name}"
   function_name = "${var.file-duplicator-lambda-name}"
-  role          = "${aws_iam_role.lambda-s3-access-role.arn}"
+  role          = "${aws_iam_role.lambda-iam-role.arn}"
   handler       = "FileDuplicatorLambda::FileDuplicatorLambda.Function::FunctionHandler"
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
@@ -27,8 +27,8 @@ resource "aws_lambda_permission" "allow-source-bucket-event" {
   source_arn    = "${aws_s3_bucket.source-bucket.arn}"
 }
 
-resource "aws_iam_role" "lambda-s3-access-role" {
-  name = "psp-file-duplicator-s3-access-role"
+resource "aws_iam_role" "lambda-iam-role" {
+  name = "psp-file-duplicator-iam-role"
 
   assume_role_policy = <<EOF
 {
@@ -75,17 +75,17 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "attach-source-s3-access-policy-to-lambda" {
-  role       = "${aws_iam_role.lambda-s3-access-role.name}"
+  role       = "${aws_iam_role.lambda-iam-role.name}"
   policy_arn = "${aws_iam_policy.source-s3-access-policy.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "attach-destination-s3-access-policy-to-lambda" {
-  role       = "${aws_iam_role.lambda-s3-access-role.name}"
+  role       = "${aws_iam_role.lambda-iam-role.name}"
   policy_arn = "${aws_iam_policy.destination-s3-access-policy.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "attach-logging-for-lambda" {
-  role       = "${aws_iam_role.lambda-s3-access-role.name}"
+  role       = "${aws_iam_role.lambda-iam-role.name}"
   policy_arn = "${aws_iam_policy.lambda-logging.arn}"
 }
 
