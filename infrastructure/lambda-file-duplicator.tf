@@ -3,6 +3,7 @@ resource "aws_lambda_function" "file-duplicator-lambda" {
   function_name = "${var.file-duplicator-lambda-name}"
   role          = "${aws_iam_role.lambda-iam-role.arn}"
   handler       = "FileDuplicatorLambda::FileDuplicatorLambda.Function::FunctionHandler"
+  timeout       = 30
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
