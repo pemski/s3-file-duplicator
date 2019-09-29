@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "file-duplicator-lambda" {
   filename      = "${local.function-zip-name}"
-  function_name = "psp-file-duplicator-lambda"
+  function_name = "${var.file-duplicator-lambda-name}"
   role          = "${aws_iam_role.s3-access-role.arn}"
   handler       = "FileDuplicatorLambda::FileDuplicatorLambda.Function::FunctionHandler"
 
