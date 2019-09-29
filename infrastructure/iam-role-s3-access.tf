@@ -15,7 +15,7 @@ resource "aws_iam_policy" "s3-access-policy" {
             ],
             "Resource": [
                 "${aws_s3_bucket.source-bucket.arn}",
-                "${aws_s3_bucket.target-bucket.arn}"
+                "${aws_s3_bucket.destination-bucket.arn}"
             ]
         }
     ]
